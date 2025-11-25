@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Changelog - MVW3000</title>
+    <style>
+      :root {
+        --primary-color: #0056b3; /* Azul escuro */
+        --secondary-color: #f4f4f9; /* Cinza claro de fundo */
+        --text-color: #333;
+        --border-color: #ddd;
+        --correction-color: #dc3545; /* Vermelho */
+        --improvement-color: #ffc107; /* Amarelo */
+        --feature-color: #28a745; /* Verde */
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 2.2em;
+      }
+
+      header p {
+        margin-top: 5px;
+        font-size: 1.1em;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      .version-section {
+        background-color: white;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-bottom: 25px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .version-header {
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .version-header h2 {
+        color: var(--primary-color);
+        margin: 0;
+        font-size: 1.8em;
+      }
+
+      .version-header span {
+        font-size: 0.9em;
+        color: #666;
+        font-weight: 600;
+      }
+
+      .change-item {
+        display: flex;
+        margin-bottom: 15px;
+        align-items: flex-start;
+      }
+
+      .change-type {
+        min-width: 120px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 0.8em;
+        text-align: center;
+        margin-right: 15px;
+        white-space: nowrap; /* Impede a quebra de linha do rótulo */
+        flex-shrink: 0;
+      }
+
+      .type-correction {
+        background-color: var(--correction-color);
+        color: white;
+      }
+
+      .type-improvement {
+        background-color: var(--improvement-color);
+        color: var(--text-color);
+      }
+
+      .type-feature {
+        background-color: var(--feature-color);
+        color: white;
+      }
+
+      /* Estilo para tipo não definido */
+      .type-default {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .change-content {
+        flex-grow: 1;
+      }
+
+      .change-content strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 1em;
+        color: #000;
+      }
+
+      .change-content p {
+        margin: 0;
+        font-size: 0.95em;
+        color: #555;
+      }
+
+      .palliative-note {
+        font-style: italic;
+        color: #808080;
+        margin-top: 5px;
+        font-size: 0.9em;
+        border-left: 3px solid #ccc;
+        padding-left: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="project-name"></h1>
+      <p>Versão Atual: <span id="current-version"></span></p>
+    </header>
+
+    <div class="container" id="changelog-container"></div>
+
+    <script>
+      // Simulação do seu JSON de dados
+      const data = {
+        project_name: "MVW3000/Changelog",
+        current_version: "3.3.x",
+        changelog: [
+          {
+            version: "3.3.2",
+            release_date: "2025-11-13",
+            changes: [
+              {
+                type: "correction",
+                summary: "C12.1 Load parameters",
+                details:
+                  "Fixes an issue that caused F0100 (Self-diagnosis failure) when a default settings (load standard) or a set of parameters was loaded. In addition to the failure acting, changes will only take effect on the next startup.",
+              },
+              {
+                type: "correction",
+                summary: "A.1 User parameters",
+                details:
+                  "Fixes an issue that prevented editing user parameters via the HMI's magnifying glass function.",
+                palliative:
+                  "This issue does not occur when navigating through the menus.",
+              },
+              {
+                type: "improvement",
+                summary: "Thermal protection relay",
+                details:
+                  "Relocation of fault and alarm codes was performed, removing an unnecessary gap and leaving all faults in sequential order with codes identical to the MVW01.",
+              },
+              {
+                type: "improvement",
+                summary:
+                  "C13.2.4 Ratio between the primary and the auxiliary of the transformer",
+                details:
+                  "The maximum limit of the transformation ratio between the primary voltage and the auxiliary winding of the input transformer increases from 50.00 to 90.00.",
+              },
+              {
+                type: "feature",
+                summary: "MVW-3000/01: Arc fault configuration",
+                details: "Reference ticket: [MVW-809]",
+              },
+              {
+                type: "correction",
+                summary:
+                  "MVW-3000/01: Parameter load from AUI not working properly",
+                details: "Reference ticket: [MVW-832]",
+              },
+            ],
+          },
+          {
+            version: "3.3.3",
+            release_date: "2025-11-24",
+            changes: [
+              {
+                type: "improvement",
+                summary: "Fault and alarm",
+                details:
+                  "Fault and alarm list revision: F6 (Mains unbalance/Phase loss), deprecated. F305 (Input unbalance/phase loss), improved description.",
+              },
+              // Este item é vazio no JSON original, mas o script deve lidar com ele
+              {
+                type: "",
+                summary:
+                  "Mudança não especificada (será ignorada se for vazia)",
+                details: "",
+              },
+            ],
+          },
+        ],
+      };
+
+      // Função para formatar o tipo de mudança e definir a classe CSS
+      function formatChangeType(type) {
+        const lowerType = (type || "").toLowerCase();
+        if (lowerType === "correction")
+          return { label: "Correção", class: "type-correction" };
+        if (lowerType === "improvement")
+          return { label: "Melhoria", class: "type-improvement" };
+        if (lowerType === "feature")
+          return { label: "Novidade", class: "type-feature" };
+        return { label: "Atualização", class: "type-default" };
+      }
+
+      // Injeta os dados principais no cabeçalho
+      document.getElementById("project-name").textContent =
+        data.project_name.split("/")[0];
+      document.getElementById("current-version").textContent =
+        data.current_version;
+
+      const changelogContainer = document.getElementById("changelog-container");
+
+      // Itera sobre as versões
+      data.changelog.forEach((versionData) => {
+        // Verifica se há mudanças para a versão
+        const validChanges = versionData.changes.filter(
+          (change) => change.type || change.summary
+        );
+        if (validChanges.length === 0) return;
+
+        // Cria a seção da versão (div.version-section)
+        const versionSection = document.createElement("div");
+        versionSection.classList.add("version-section");
+
+        // Cria o cabeçalho da versão (div.version-header)
+        const versionHeader = document.createElement("div");
+        versionHeader.classList.add("version-header");
+        versionHeader.innerHTML = `
+                <h2>Versão ${versionData.version}</h2>
+                <span>Lançamento: ${versionData.release_date}</span>
+            `;
+        versionSection.appendChild(versionHeader);
+
+        // Itera sobre as mudanças da versão
+        validChanges.forEach((change) => {
+          const changeInfo = formatChangeType(change.type);
+
+          // Cria o item de mudança (div.change-item)
+          const changeItem = document.createElement("div");
+          changeItem.classList.add("change-item");
+
+          // Adiciona o rótulo do tipo de mudança (div.change-type)
+          const changeType = document.createElement("div");
+          changeType.classList.add("change-type", changeInfo.class);
+          changeType.textContent = changeInfo.label;
+          changeItem.appendChild(changeType);
+
+          // Adiciona o conteúdo da mudança (div.change-content)
+          const changeContent = document.createElement("div");
+          changeContent.classList.add("change-content");
+          changeContent.innerHTML = `
+                    <strong>${
+                      change.summary || "Detalhes da Atualização"
+                    }</strong>
+                    <p>${change.details || "Sem descrição detalhada."}</p>
+                `;
+
+          // Adiciona nota paliativa se existir
+          if (change.palliative) {
+            const palliativeNote = document.createElement("p");
+            palliativeNote.classList.add("palliative-note");
+            palliativeNote.textContent = `Nota Paliativa: ${change.palliative}`;
+            changeContent.appendChild(palliativeNote);
+          }
+
+          changeItem.appendChild(changeContent);
+          versionSection.appendChild(changeItem);
+        });
+
+        changelogContainer.appendChild(versionSection);
+      });
+    </script>
+  </body>
+</html>

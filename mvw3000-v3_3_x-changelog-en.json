@@ -1,0 +1,87 @@
+{
+  "project_name": "MVW3000/Changelog",
+  "current_version": "3.3.x",
+  "changelog": [
+    {
+      "version": "3.3.2",
+      "release_date": "2025-11-13",
+      "changes": [
+        {
+          "type": "correction",
+          "summary": "C12.1 Load parameters",
+          "details": "Fixesssss an issue that caused F0100 (Self-diagnosis failure) when a default settings (load standard) or a set of parameters was loaded. In addition to the failure acting, changes will only take effect on the next startup.",
+          "publish": true
+        },
+        {
+          "type": "correction",
+          "summary": "A.1 User parameters",
+          "details": "Fixes an issue that prevented editing user parameters via the HMI's magnifying glass function.",
+          "palliative": "This issue does not occur when navigating through the menus."
+        },
+        {
+          "type": "improvement",
+          "summary": "Thermal protection relay",
+          "details": "Relocation of fault and alarm codes was performed, removing an unnecessary gap and leaving all faults in sequential order with codes identical to the MVW01."
+        },
+        {
+          "type": "improvement",
+          "summary": "C13.2.4 Ratio between the primary and the auxiliary of the transformer",
+          "details": "The maximum limit of the transformation ratio between the primary voltage and the auxiliary winding of the input transformer increases from 50.00 to 90.00."
+        },
+        {
+          "type": "improvement",
+          "summary": "C1.7 General configurations of accessories installed in the MVW.",
+          "details": "Allows you to force the use of a specific accessory in the slots. If the accessory is configured but not installed, an error will be indicated."
+        },
+        {
+          "type": "improvement",
+          "summary": "Fault and alarm code",
+          "details": "All fault and alarm indications in the manual now follow the same formatting used in the HMI (Fxxxx and Axxxx)."
+        },
+        {
+          "type": "improvement",
+          "summary": "C12.[2,3,4] Load set [1,2,3] DI",
+          "details": "Allows associating a digital input to the load parameter set function."
+        },
+        {
+          "type": "feature",
+          "summary": "MVW-3000/01: Arc fault configuration",
+          "details": "Reference ticket: [MVW-809]"
+        },
+        {
+          "type": "improvement",
+          "summary": "MVW-3000/01: Specific fault code for CIB incorrect configuration",
+          "details": "Reference ticket: [MVW-809]"
+        },
+        {
+          "type": "improvement",
+          "summary": "MVW-3000: Specific fault code for failure during Manageable fault test",
+          "details": "Reference ticket: [MVW-774]"
+        },
+        {
+          "type": "correction",
+          "summary": "MVW-3000/01: Parameter load from AUI not working properly",
+          "details": "Reference ticket: [MVW-832]"
+        }
+      ]
+    },
+    {
+      "version": "3.3.3",
+      "release_date": "2025-11-24",
+      "changes": [
+        {
+          "type": "improvement",
+          "summary": "Fault and alarm",
+          "details": "Fault and alarm list revision: F6 (Mains unbalance/Phase loss), deprecated. F305 (Input unbalance/phase loss), improved description."
+        },
+        {
+          "type": "",
+          "issue": "",
+          "summary": "",
+          "details": "",
+          "palliative": ""
+        }
+      ]
+    }
+  ]
+}

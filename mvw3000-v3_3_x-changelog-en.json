@@ -9,13 +9,13 @@
         {
           "type": "correction",
           "summary": "C12.1 Load parameters",
-          "details": "Fixesssss an issue that caused F0100 (Self-diagnosis failure) when a default settings (load standard) or a set of parameters was loaded. In addition to the failure acting, changes will only take effect on the next startup.",
+          "details": "Fixes an issue that caused F0100 (Self-diagnosis failure) when a default settings (load standard) or a set of parameters was loaded. In addition to the failure acting, changes will only take effect on the next startup.",
           "publish": true
         },
         {
           "type": "correction",
           "summary": "A.1 User parameters",
-          "details": "Fixes an issue that prevented editing user parameters via the HMI's magnifying glass function.",
+          "details": "Fixes an issue that prevented editing user parameters via the HMI parameter search function.",
           "palliative": "This issue does not occur when navigating through the menus."
         },
         {

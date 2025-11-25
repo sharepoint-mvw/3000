@@ -154,77 +154,6 @@
     <div class="container" id="changelog-container"></div>
 
     <script>
-      // Simulação do seu JSON de dados
-      const data = {
-        project_name: "MVW3000/Changelog",
-        current_version: "3.3.x",
-        changelog: [
-          {
-            version: "3.3.2",
-            release_date: "2025-11-13",
-            changes: [
-              {
-                type: "correction",
-                summary: "C12.1 Load parameters",
-                details:
-                  "Fixes an issue that caused F0100 (Self-diagnosis failure) when a default settings (load standard) or a set of parameters was loaded. In addition to the failure acting, changes will only take effect on the next startup.",
-              },
-              {
-                type: "correction",
-                summary: "A.1 User parameters",
-                details:
-                  "Fixes an issue that prevented editing user parameters via the HMI's magnifying glass function.",
-                palliative:
-                  "This issue does not occur when navigating through the menus.",
-              },
-              {
-                type: "improvement",
-                summary: "Thermal protection relay",
-                details:
-                  "Relocation of fault and alarm codes was performed, removing an unnecessary gap and leaving all faults in sequential order with codes identical to the MVW01.",
-              },
-              {
-                type: "improvement",
-                summary:
-                  "C13.2.4 Ratio between the primary and the auxiliary of the transformer",
-                details:
-                  "The maximum limit of the transformation ratio between the primary voltage and the auxiliary winding of the input transformer increases from 50.00 to 90.00.",
-              },
-              {
-                type: "feature",
-                summary: "MVW-3000/01: Arc fault configuration",
-                details: "Reference ticket: [MVW-809]",
-              },
-              {
-                type: "correction",
-                summary:
-                  "MVW-3000/01: Parameter load from AUI not working properly",
-                details: "Reference ticket: [MVW-832]",
-              },
-            ],
-          },
-          {
-            version: "3.3.3",
-            release_date: "2025-11-24",
-            changes: [
-              {
-                type: "improvement",
-                summary: "Fault and alarm",
-                details:
-                  "Fault and alarm list revision: F6 (Mains unbalance/Phase loss), deprecated. F305 (Input unbalance/phase loss), improved description.",
-              },
-              // Este item é vazio no JSON original, mas o script deve lidar com ele
-              {
-                type: "",
-                summary:
-                  "Mudança não especificada (será ignorada se for vazia)",
-                details: "",
-              },
-            ],
-          },
-        ],
-      };
-
       // Função para formatar o tipo de mudança e definir a classe CSS
       function formatChangeType(type) {
         const lowerType = (type || "").toLowerCase();
@@ -237,73 +166,103 @@
         return { label: "Atualização", class: "type-default" };
       }
 
-      // Injeta os dados principais no cabeçalho
-      document.getElementById("project-name").textContent =
-        data.project_name.split("/")[0];
-      document.getElementById("current-version").textContent =
-        data.current_version;
+      // Função principal para renderizar o Changelog
+      function renderChangelog(data) {
+        // 1. Injeta os dados principais no cabeçalho
+        document.getElementById("project-name").textContent =
+          data.project_name.split("/")[0];
+        document.getElementById("current-version").textContent =
+          data.current_version;
 
-      const changelogContainer = document.getElementById("changelog-container");
-
-      // Itera sobre as versões
-      data.changelog.forEach((versionData) => {
-        // Verifica se há mudanças para a versão
-        const validChanges = versionData.changes.filter(
-          (change) => change.type || change.summary
+        const changelogContainer = document.getElementById(
+          "changelog-container"
         );
-        if (validChanges.length === 0) return;
+        changelogContainer.innerHTML = ""; // Limpa o container antes de renderizar
 
-        // Cria a seção da versão (div.version-section)
-        const versionSection = document.createElement("div");
-        versionSection.classList.add("version-section");
+        // 2. Itera sobre as versões e as mudanças (Lógica de renderização original)
+        data.changelog.forEach((versionData) => {
+          const validChanges = versionData.changes.filter(
+            (change) => change.type || change.summary
+          );
+          if (validChanges.length === 0) return;
 
-        // Cria o cabeçalho da versão (div.version-header)
-        const versionHeader = document.createElement("div");
-        versionHeader.classList.add("version-header");
-        versionHeader.innerHTML = `
+          const versionSection = document.createElement("div");
+          versionSection.classList.add("version-section");
+
+          const versionHeader = document.createElement("div");
+          versionHeader.classList.add("version-header");
+          versionHeader.innerHTML = `
                 <h2>Versão ${versionData.version}</h2>
                 <span>Lançamento: ${versionData.release_date}</span>
             `;
-        versionSection.appendChild(versionHeader);
+          versionSection.appendChild(versionHeader);
 
-        // Itera sobre as mudanças da versão
-        validChanges.forEach((change) => {
-          const changeInfo = formatChangeType(change.type);
+          validChanges.forEach((change) => {
+            const changeInfo = formatChangeType(change.type);
 
-          // Cria o item de mudança (div.change-item)
-          const changeItem = document.createElement("div");
-          changeItem.classList.add("change-item");
+            const changeItem = document.createElement("div");
+            changeItem.classList.add("change-item");
 
-          // Adiciona o rótulo do tipo de mudança (div.change-type)
-          const changeType = document.createElement("div");
-          changeType.classList.add("change-type", changeInfo.class);
-          changeType.textContent = changeInfo.label;
-          changeItem.appendChild(changeType);
+            const changeType = document.createElement("div");
+            changeType.classList.add("change-type", changeInfo.class);
+            changeType.textContent = changeInfo.label;
+            changeItem.appendChild(changeType);
 
-          // Adiciona o conteúdo da mudança (div.change-content)
-          const changeContent = document.createElement("div");
-          changeContent.classList.add("change-content");
-          changeContent.innerHTML = `
+            const changeContent = document.createElement("div");
+            changeContent.classList.add("change-content");
+            changeContent.innerHTML = `
                     <strong>${
                       change.summary || "Detalhes da Atualização"
                     }</strong>
                     <p>${change.details || "Sem descrição detalhada."}</p>
                 `;
 
-          // Adiciona nota paliativa se existir
-          if (change.palliative) {
-            const palliativeNote = document.createElement("p");
-            palliativeNote.classList.add("palliative-note");
-            palliativeNote.textContent = `Nota Paliativa: ${change.palliative}`;
-            changeContent.appendChild(palliativeNote);
-          }
+            if (change.palliative) {
+              const palliativeNote = document.createElement("p");
+              palliativeNote.classList.add("palliative-note");
+              palliativeNote.textContent = `Nota Paliativa: ${change.palliative}`;
+              changeContent.appendChild(palliativeNote);
+            }
 
-          changeItem.appendChild(changeContent);
-          versionSection.appendChild(changeItem);
+            changeItem.appendChild(changeContent);
+            versionSection.appendChild(changeItem);
+          });
+
+          changelogContainer.appendChild(versionSection);
         });
+      }
 
-        changelogContainer.appendChild(versionSection);
-      });
+      // --- Nova Seção: Carregamento Dinâmico com fetch ---
+
+      const JSON_URL = "mvw3000-v3_3_x-changelog-en.json"; // Nome do seu arquivo JSON
+
+      // Usa a API fetch para carregar o arquivo
+      fetch(JSON_URL)
+        .then((response) => {
+          if (!response.ok) {
+            // Lança um erro se o arquivo não for encontrado (ex: 404) ou houver outro problema de rede
+            throw new Error(
+              `Erro ao carregar o JSON: ${response.status} ${response.statusText}`
+            );
+          }
+          return response.json(); // Converte a resposta em objeto JavaScript (JSON)
+        })
+        .then((data) => {
+          // Chama a função de renderização com os dados carregados
+          renderChangelog(data);
+        })
+        .catch((error) => {
+          // Trata erros (exibe no console e na página)
+          console.error("Falha ao carregar o changelog:", error);
+          document.getElementById(
+            "changelog-container"
+          ).innerHTML = `<div style="color: ${getComputedStyle(
+            document.documentElement
+          ).getPropertyValue("--correction-color")}; padding: 20px;">
+                    <h2>🚨 Erro ao Carregar o Changelog</h2>
+                    <p>Não foi possível acessar o arquivo de dados. Certifique-se de que o arquivo **${JSON_URL}** está na mesma pasta do **index.html** e que você está executando a página em um servidor (ou com as permissões corretas).</p>
+                </div>`;
+        });
     </script>
   </body>
 </html>

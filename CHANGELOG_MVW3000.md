@@ -52,19 +52,19 @@
 ### Added
 
 - summary: Arc fault configuration
-- details: Reference ticket: [MVW-809]
+- details: Reference ticket: [MVW-809](https://jiracloudweg.atlassian.net/browse/MVW-809)
 
 ### Added
 
 - summary: Specific fault code for CIB incorrect configuration
-- details: Reference ticket: [MVW-809]
+- details: Reference ticket: [MVW-809](https://jiracloudweg.atlassian.net/browse/MVW-809)
 
 ### Added
 
 - summary: Specific fault code for failure during Manageable fault test
-- details: Reference ticket: [MVW-774]
+- details: Reference ticket: [MVW-774](https://jiracloudweg.atlassian.net/browse/MVW-774)
 
 ### Fixed
 
 - summary: Parameter load from AUI not working properly
-- details: Reference ticket: [MVW-832]
+- details: Reference ticket: [MVW-832](https://jiracloudweg.atlassian.net/browse/MVW-832)

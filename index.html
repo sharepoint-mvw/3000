@@ -135,6 +135,18 @@
         border-left: 3px solid #ccc;
         padding-left: 8px;
       }
+
+      /* Adicione isso ao seu bloco <style> */
+      .change-item a {
+        color: var(--primary-color);
+        text-decoration: none;
+        border-bottom: 1px dotted var(--primary-color);
+        font-weight: bold;
+      }
+
+      .change-item a:hover {
+        text-decoration: underline;
+      }
     </style>
   </head>
 
@@ -166,7 +178,20 @@
       };
 
       //----------------------------------------------------
-      // Parser Markdown robusto, com validação
+      // NOVO: Função auxiliar para converter links MD em HTML
+      //----------------------------------------------------
+      function parseInlineMarkdown(text) {
+        if (!text) return "";
+        // Regex para encontrar [texto](url) e substituir por <a href="url">texto</a>
+        // O target="_blank" faz abrir em nova aba
+        return text.replace(
+          /\[([^\]]+)\]\(([^)]+)\)/g,
+          '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+        );
+      }
+
+      //----------------------------------------------------
+      // Parser Markdown robusto (ATUALIZADO)
       //----------------------------------------------------
       function parseMarkdown(mdText) {
         const errors = [];
@@ -230,7 +255,7 @@
             return;
           }
 
-          // summary
+          // summary (AGORA COM parseInlineMarkdown)
           const sMatch = summaryRegex.exec(line);
           if (sMatch) {
             if (!currentVersionBlock) {
@@ -244,32 +269,32 @@
 
             currentChange = {
               type: currentType,
-              summary: sMatch[1],
+              summary: parseInlineMarkdown(sMatch[1]), // <--- Alterado aqui
               details: "",
             };
             currentVersionBlock.changes.push(currentChange);
             return;
           }
 
-          // details
+          // details (AGORA COM parseInlineMarkdown)
           const dMatch = detailsRegex.exec(line);
           if (dMatch) {
             if (!currentChange) {
               errors.push(`⚠ details sem summary acima (linha ${lineNumber})`);
               return;
             }
-            currentChange.details = dMatch[1];
+            currentChange.details = parseInlineMarkdown(dMatch[1]); // <--- Alterado aqui
             return;
           }
 
-          // note
+          // note (AGORA COM parseInlineMarkdown)
           const nMatch = noteRegex.exec(line);
           if (nMatch) {
             if (!currentChange) {
               errors.push(`⚠ note sem summary acima (linha ${lineNumber})`);
               return;
             }
-            currentChange.palliative = nMatch[1];
+            currentChange.palliative = parseInlineMarkdown(nMatch[1]); // <--- Alterado aqui
             return;
           }
 
@@ -278,7 +303,7 @@
 
         pushVersion();
 
-        const lastVersion = changelog[changelog.length - 1]?.version || "";
+        const lastVersion = changelog[0]?.version || "";
 
         return {
           project_name: "MVW3000",

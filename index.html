@@ -4,15 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Changelog - MVW3000</title>
+
     <style>
       :root {
-        --primary-color: #0056b3; /* Azul escuro */
-        --secondary-color: #f4f4f9; /* Cinza claro de fundo */
+        --primary-color: #0056b3;
+        --secondary-color: #f4f4f9;
         --text-color: #333;
         --border-color: #ddd;
-        --correction-color: #dc3545; /* Vermelho */
-        --improvement-color: #ffc107; /* Amarelo */
-        --feature-color: #28a745; /* Verde */
+        --correction-color: #dc3545;
+        --improvement-color: #ffc107;
+        --feature-color: #28a745;
+        --deprecated-color: #6a1b9a;
+        --removed-color: #000;
+        --security-color: #ff5722;
       }
 
       body {
@@ -37,15 +41,19 @@
         font-size: 2.2em;
       }
 
-      header p {
-        margin-top: 5px;
-        font-size: 1.1em;
-      }
-
       .container {
         max-width: 1000px;
         margin: 30px auto;
         padding: 0 20px;
+      }
+
+      .error-box {
+        background: #fff0f0;
+        color: #a00;
+        border-left: 5px solid red;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 6px;
       }
 
       .version-section {
@@ -66,18 +74,6 @@
         align-items: center;
       }
 
-      .version-header h2 {
-        color: var(--primary-color);
-        margin: 0;
-        font-size: 1.8em;
-      }
-
-      .version-header span {
-        font-size: 0.9em;
-        color: #666;
-        font-weight: 600;
-      }
-
       .change-item {
         display: flex;
         margin-bottom: 15px;
@@ -93,46 +89,42 @@
         font-size: 0.8em;
         text-align: center;
         margin-right: 15px;
-        white-space: nowrap; /* Impede a quebra de linha do rótulo */
         flex-shrink: 0;
       }
 
-      .type-correction {
+      .type-fixed {
         background-color: var(--correction-color);
         color: white;
       }
 
-      .type-improvement {
+      .type-changed {
         background-color: var(--improvement-color);
-        color: var(--text-color);
+        color: #000;
       }
 
-      .type-feature {
+      .type-added {
         background-color: var(--feature-color);
         color: white;
       }
 
-      /* Estilo para tipo não definido */
-      .type-default {
-        background-color: #6c757d;
+      .type-deprecated {
+        background-color: var(--deprecated-color);
         color: white;
       }
 
-      .change-content {
-        flex-grow: 1;
+      .type-removed {
+        background-color: var(--removed-color);
+        color: white;
       }
 
-      .change-content strong {
-        display: block;
-        margin-bottom: 3px;
-        font-size: 1em;
-        color: #000;
+      .type-security {
+        background-color: var(--security-color);
+        color: white;
       }
 
-      .change-content p {
-        margin: 0;
-        font-size: 0.95em;
-        color: #555;
+      .type-default {
+        background-color: #888;
+        color: white;
       }
 
       .palliative-note {
@@ -145,123 +137,239 @@
       }
     </style>
   </head>
+
   <body>
     <header>
-      <h1 id="project-name"></h1>
+      <h1 id="project-name">MVW3000</h1>
       <p>Versão Atual: <span id="current-version"></span></p>
     </header>
 
-    <div class="container" id="changelog-container"></div>
+    <div class="container">
+      <div id="validation-errors"></div>
+      <div id="changelog-container"></div>
+    </div>
 
     <script>
-      // Função para formatar o tipo de mudança e definir a classe CSS
-      function formatChangeType(type) {
-        const lowerType = (type || "").toLowerCase();
-        if (lowerType === "correction")
-          return { label: "Correção", class: "type-correction" };
-        if (lowerType === "improvement")
-          return { label: "Melhoria", class: "type-improvement" };
-        if (lowerType === "feature")
-          return { label: "Novidade", class: "type-feature" };
-        return { label: "Atualização", class: "type-default" };
+      //----------------------------------------------------
+      // Suporte a vários tipos conhecidos
+      //----------------------------------------------------
+      const TYPE_MAP = {
+        fixed: "type-fixed",
+        correction: "type-fixed",
+        changed: "type-changed",
+        improvement: "type-changed",
+        added: "type-added",
+        feature: "type-added",
+        deprecated: "type-deprecated",
+        removed: "type-removed",
+        security: "type-security",
+      };
+
+      //----------------------------------------------------
+      // Parser Markdown robusto, com validação
+      //----------------------------------------------------
+      function parseMarkdown(mdText) {
+        const errors = [];
+        const lines = mdText.split("\n");
+
+        const versionRegex = /^## \[(.*?)\] - (.*)$/;
+        const typeRegex = /^### (.*)$/;
+        const summaryRegex = /^- summary:\s*(.*)$/i;
+        const detailsRegex = /^- details:\s*(.*)$/i;
+        const noteRegex = /^- note:\s*(.*)$/i;
+
+        let currentVersionBlock = null;
+        let currentType = null;
+        let currentChange = null;
+
+        const changelog = [];
+
+        function pushVersion() {
+          if (!currentVersionBlock) return;
+          if (currentVersionBlock.changes.length === 0) {
+            errors.push(
+              `⚠ Versão ${currentVersionBlock.version} não possui entradas válidas.`
+            );
+          }
+          changelog.push(currentVersionBlock);
+        }
+
+        lines.forEach((raw, index) => {
+          const line = raw.trim();
+          const lineNumber = index + 1;
+
+          if (!line) return;
+
+          // Detecta nova versão
+          const vMatch = versionRegex.exec(line);
+          if (vMatch) {
+            pushVersion();
+            currentVersionBlock = {
+              version: vMatch[1],
+              release_date: vMatch[2],
+              changes: [],
+            };
+            currentType = null;
+            currentChange = null;
+            return;
+          }
+
+          // Detecta tipo
+          const tMatch = typeRegex.exec(line);
+          if (tMatch) {
+            const rawType = tMatch[1].trim().toLowerCase();
+            currentType = rawType;
+
+            if (!TYPE_MAP[rawType]) {
+              errors.push(
+                `⚠ Tipo desconhecido na linha ${lineNumber}: "${rawType}"`
+              );
+            }
+
+            currentChange = null;
+            return;
+          }
+
+          // summary
+          const sMatch = summaryRegex.exec(line);
+          if (sMatch) {
+            if (!currentVersionBlock) {
+              errors.push(`⚠ summary sem versão na linha ${lineNumber}`);
+              return;
+            }
+            if (!currentType) {
+              errors.push(`⚠ summary sem ### tipo acima (linha ${lineNumber})`);
+              return;
+            }
+
+            currentChange = {
+              type: currentType,
+              summary: sMatch[1],
+              details: "",
+            };
+            currentVersionBlock.changes.push(currentChange);
+            return;
+          }
+
+          // details
+          const dMatch = detailsRegex.exec(line);
+          if (dMatch) {
+            if (!currentChange) {
+              errors.push(`⚠ details sem summary acima (linha ${lineNumber})`);
+              return;
+            }
+            currentChange.details = dMatch[1];
+            return;
+          }
+
+          // note
+          const nMatch = noteRegex.exec(line);
+          if (nMatch) {
+            if (!currentChange) {
+              errors.push(`⚠ note sem summary acima (linha ${lineNumber})`);
+              return;
+            }
+            currentChange.palliative = nMatch[1];
+            return;
+          }
+
+          errors.push(`⚠ Linha ignorada (inválida): ${line}`);
+        });
+
+        pushVersion();
+
+        const lastVersion = changelog[changelog.length - 1]?.version || "";
+
+        return {
+          project_name: "MVW3000",
+          current_version: lastVersion,
+          changelog,
+          errors,
+        };
       }
 
-      // Função principal para renderizar o Changelog
+      //----------------------------------------------------
+      // Renderização HTML do changelog
+      //----------------------------------------------------
       function renderChangelog(data) {
-        // 1. Injeta os dados principais no cabeçalho
-        document.getElementById("project-name").textContent =
-          data.project_name.split("/")[0];
+        document.getElementById("project-name").textContent = data.project_name;
         document.getElementById("current-version").textContent =
           data.current_version;
 
-        const changelogContainer = document.getElementById(
-          "changelog-container"
-        );
-        changelogContainer.innerHTML = ""; // Limpa o container antes de renderizar
+        const c = document.getElementById("changelog-container");
+        c.innerHTML = "";
 
-        // 2. Itera sobre as versões e as mudanças (Lógica de renderização original)
-        data.changelog.forEach((versionData) => {
-          const validChanges = versionData.changes.filter(
-            (change) => change.type || change.summary
-          );
-          if (validChanges.length === 0) return;
+        data.changelog.forEach((v) => {
+          const section = document.createElement("div");
+          section.className = "version-section";
 
-          const versionSection = document.createElement("div");
-          versionSection.classList.add("version-section");
+          section.innerHTML = `
+            <div class="version-header">
+              <h2>Versão ${v.version}</h2>
+              <span>${v.release_date}</span>
+            </div>
+          `;
 
-          const versionHeader = document.createElement("div");
-          versionHeader.classList.add("version-header");
-          versionHeader.innerHTML = `
-                <h2>Versão ${versionData.version}</h2>
-                <span>Lançamento: ${versionData.release_date}</span>
+          v.changes.forEach((ch) => {
+            const typeClass = TYPE_MAP[ch.type] || "type-default";
+            const div = document.createElement("div");
+            div.className = "change-item";
+
+            div.innerHTML = `
+              <div class="change-type ${typeClass}">${ch.type.toUpperCase()}</div>
+              <div>
+                <strong>${ch.summary}</strong>
+                <p>${ch.details}</p>
+                ${
+                  ch.palliative
+                    ? `<div class="palliative-note">${ch.palliative}</div>`
+                    : ""
+                }
+              </div>
             `;
-          versionSection.appendChild(versionHeader);
 
-          validChanges.forEach((change) => {
-            const changeInfo = formatChangeType(change.type);
-
-            const changeItem = document.createElement("div");
-            changeItem.classList.add("change-item");
-
-            const changeType = document.createElement("div");
-            changeType.classList.add("change-type", changeInfo.class);
-            changeType.textContent = changeInfo.label;
-            changeItem.appendChild(changeType);
-
-            const changeContent = document.createElement("div");
-            changeContent.classList.add("change-content");
-            changeContent.innerHTML = `
-                    <strong>${
-                      change.summary || "Detalhes da Atualização"
-                    }</strong>
-                    <p>${change.details || "Sem descrição detalhada."}</p>
-                `;
-
-            if (change.palliative) {
-              const palliativeNote = document.createElement("p");
-              palliativeNote.classList.add("palliative-note");
-              palliativeNote.textContent = `Nota Paliativa: ${change.palliative}`;
-              changeContent.appendChild(palliativeNote);
-            }
-
-            changeItem.appendChild(changeContent);
-            versionSection.appendChild(changeItem);
+            section.appendChild(div);
           });
 
-          changelogContainer.appendChild(versionSection);
+          c.appendChild(section);
         });
       }
 
-      // --- Nova Seção: Carregamento Dinâmico com fetch ---
+      //----------------------------------------------------
+      // Mostrar erros de validação do MD
+      //----------------------------------------------------
+      function renderValidationErrors(errors) {
+        const box = document.getElementById("validation-errors");
+        if (errors.length === 0) {
+          box.innerHTML = "";
+          return;
+        }
+        box.innerHTML = `
+          <div class="error-box">
+            <h3>⚠ Problemas detectados no Markdown:</h3>
+            <ul>
+              ${errors.map((e) => `<li>${e}</li>`).join("")}
+            </ul>
+          </div>
+        `;
+      }
 
-      const JSON_URL = "mvw3000-v3_3_x-changelog-en.json"; // Nome do seu arquivo JSON
-
-      // Usa a API fetch para carregar o arquivo
-      fetch(JSON_URL)
-        .then((response) => {
-          if (!response.ok) {
-            // Lança um erro se o arquivo não for encontrado (ex: 404) ou houver outro problema de rede
-            throw new Error(
-              `Erro ao carregar o JSON: ${response.status} ${response.statusText}`
-            );
-          }
-          return response.json(); // Converte a resposta em objeto JavaScript (JSON)
-        })
-        .then((data) => {
-          // Chama a função de renderização com os dados carregados
+      //----------------------------------------------------
+      // Carregar o MD
+      //----------------------------------------------------
+      fetch("CHANGELOG_MVW3000.md")
+        .then((r) => r.text())
+        .then((text) => {
+          const data = parseMarkdown(text);
+          renderValidationErrors(data.errors);
           renderChangelog(data);
         })
-        .catch((error) => {
-          // Trata erros (exibe no console e na página)
-          console.error("Falha ao carregar o changelog:", error);
-          document.getElementById(
-            "changelog-container"
-          ).innerHTML = `<div style="color: ${getComputedStyle(
-            document.documentElement
-          ).getPropertyValue("--correction-color")}; padding: 20px;">
-                    <h2>🚨 Erro ao Carregar o Changelog</h2>
-                    <p>Não foi possível acessar o arquivo de dados. Certifique-se de que o arquivo **${JSON_URL}** está na mesma pasta do **index.html** e que você está executando a página em um servidor (ou com as permissões corretas).</p>
-                </div>`;
+        .catch((err) => {
+          document.getElementById("changelog-container").innerHTML = `
+            <div class="error-box">
+              ❌ Erro ao carregar o arquivo CHANGELOG_MVW3000.md
+            </div>
+          `;
         });
     </script>
   </body>

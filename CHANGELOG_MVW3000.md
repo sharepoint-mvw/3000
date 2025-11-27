@@ -1,5 +1,18 @@
 ## [3.03.03] - 2025-11-24
 
+### Fixed
+
+- summary: S2.4.2 Inverter temperatures | Thermal protection relay
+- details: Fixes an issue that caused negative temperatures read by the thermal protection relay channels to be displayed incorrectly on HMIG3 and communication networks
+- note: The relay's graphical interface displayed the correct temperature and the protections were functioning normally
+- note: Reference ticket: [MVW-843](https://jiracloudweg.atlassian.net/browse/MVW-843)
+
+### Added
+
+- summary: C1.9.6 Precharge | Operating mode
+- details: A parameter has been added to select the pre-charge method. In this new method, the auxiliary inverter performs the pre-charge in synchronization with the electrical grid, remaining enabled until the connection to the grid is established, eliminating any inrush current in the input transformer
+- note: Reference ticket: [MVW-829](https://jiracloudweg.atlassian.net/browse/MVW-829)
+
 ### Changed
 
 - summary: Fault and alarm list revision
@@ -14,13 +27,13 @@
 
 ### Fixed
 
-- summary: C12.1 Load parameters
+- summary: C12.1 Backup | Load parameters
 - details: Fixes an issue that caused F0100 (Self-diagnosis failure) when a default settings (load standard) or a set of parameters was loaded
 - note: In addition to the failure acting, changes will only take effect on the next startup
 
 ### Fixed
 
-- summary: A.1 User parameters
+- summary: A.1 Application | User parameters
 - details: Fixes an issue that prevented editing user parameters via the HMI parameter search function
 - note: This issue does not occur when navigating through the menus
 
@@ -37,7 +50,7 @@
 ### Added
 
 - summary: C1.7 General configurations of accessories installed in the MVW
-- details: Allows you to force the use of a specific accessory in the slots. If the accessory is configured but not installed, an error will be indicated
+- details: Allows the use of a specific accessory in the slots to be forced; if the accessory is configured but not installed, an error will be displayed according to the configured slot
 
 ### Fixed
 

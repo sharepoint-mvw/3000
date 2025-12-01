@@ -4,7 +4,7 @@
 
 - summary: S2.4.2 Inverter temperatures | Thermal protection relay
 - details: Fixes an issue that caused negative temperatures read by the thermal protection relay channels to be displayed incorrectly on HMIG3 and communication networks
-- note: The relay's graphical interface displayed the correct temperature and the protections were functioning normally
+- note: Note: The relay's graphical interface displayed the correct temperature and the protections were functioning normally
 - note: Reference ticket: [MVW-843](https://jiracloudweg.atlassian.net/browse/MVW-843)
 
 ### Added
@@ -29,13 +29,13 @@
 
 - summary: C12.1 Backup | Load parameters
 - details: Fixes an issue that caused F0100 (Self-diagnosis failure) when a default settings (load standard) or a set of parameters was loaded
-- note: In addition to the failure acting, changes will only take effect on the next startup
+- note: Note: In addition to the failure acting, changes will only take effect on the next startup
 
 ### Fixed
 
 - summary: A.1 Application | User parameters
 - details: Fixes an issue that prevented editing user parameters via the HMI parameter search function
-- note: This issue does not occur when navigating through the menus
+- note: Note: This issue does not occur when navigating through the menus
 
 ### Changed
 

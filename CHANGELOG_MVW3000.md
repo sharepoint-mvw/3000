@@ -16,7 +16,7 @@
 ### Changed
 
 - summary: Fault and alarm list revision
-- details: F0305 (Input unbalance/phase loss) improved description
+- details: F0305 (Input unbalance/phase loss) improved programming manual description
 
 ### Deprecated
 

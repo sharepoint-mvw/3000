@@ -10,7 +10,7 @@
 ### Added
 
 - summary: C1.9.6 Precharge | Operating mode
-- details: Parameter to select the pre-charge method. In this new method, the auxiliary inverter performs the pre-charge in synchronization with the electrical grid, remaining enabled until the connection to the grid is established, eliminating any inrush current in the input transformer
+- details: New parameter to select the pre-charge method. In this new method, the auxiliary inverter performs the pre-charge in synchronization with the electrical grid, remaining enabled until the connection to the grid is established, eliminating any inrush current in the input transformer
 - note: Reference ticket: [MVW-829](https://jiracloudweg.atlassian.net/browse/MVW-829)
 
 ### Changed

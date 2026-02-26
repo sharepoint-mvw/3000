@@ -153,7 +153,7 @@
   <body>
     <header>
       <h1 id="project-name">MVW3000</h1>
-      <p>Versão Atual: v<span id="current-version"></span></p>
+      <p>Current Version: v<span id="current-version"></span></p>
     </header>
 
     <div class="container">
@@ -390,6 +390,21 @@
         .then((r) => r.text())
         .then((text) => {
           const data = parseMarkdown(text);
+
+          // ==========================================
+          // LÓGICA PARA OCULTAR O 'UNRELEASED'
+          // ==========================================
+          const urlParams = new URLSearchParams(window.location.search);
+          const isDebug = urlParams.get('debug') === 'true';
+
+          // Se NÃO for modo debug, removemos a versão Unreleased da lista
+          if (!isDebug) {
+            data.changelog = data.changelog.filter(
+              (v) => !v.release_date.toLowerCase().includes('unreleased')
+            );
+          }
+          // ==========================================
+
           renderValidationErrors(data.errors);
           renderChangelog(data);
         })
@@ -399,6 +414,7 @@
               ❌ Erro ao carregar o arquivo CHANGELOG_MVW3000.md
             </div>
           `;
+          console.error(err);
         });
     </script>
   </body>

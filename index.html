@@ -147,6 +147,98 @@
       .change-item a:hover {
         text-decoration: underline;
       }
+      /* --- VERSÕES UNRELEASED (Não Lançadas) --- */
+
+/* Por padrão, esconde a seção inteira se for Unreleased */
+.version-unreleased {
+  display: none;
+}
+
+/* Quando o modo Admin (Engenharia) está ativo via Login: */
+body.admin-mode .version-unreleased {
+  display: block !important;
+  border: 2px dashed #ff9800; /* Borda laranja tracejada para indicar rascunho */
+  background-color: #fff8e1;  /* Fundo amarelado */
+  position: relative;
+}
+
+/* Adiciona um selo "RASCUNHO" ou "BETA" visualmente */
+body.admin-mode .version-unreleased::before {
+  content: "Development Version (Unreleased)";
+  display: block;
+  background: #ff9800;
+  color: white;
+  font-weight: bold;
+  padding: 2px 10px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+/* Classe para itens ocultos */
+.secret-item {
+  display: none; /* Oculto por padrão */
+  border-left: 5px solid #ff0000; /* Borda vermelha para identificar */
+  background-color: #fff5f5;
+}
+
+/* Quando o corpo da página tiver a classe 'admin-mode', mostra os itens */
+body.admin-mode .secret-item {
+  display: flex; /* Volta a exibir */
+}
+
+/* Estilo simples para o login no header */
+.login-container {
+  margin-top: 10px;
+  font-size: 0.8em;
+}
+.login-container input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.login-container button {
+  padding: 5px 10px;
+  background-color: #004085; /* Cor escura WEG */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* --- ESTILOS DE SEGURANÇA --- */
+
+/* Oculta qualquer elemento marcado como secreto por padrão */
+.secret-item {
+  display: none !important;
+}
+
+/* MODO ADMIN ATIVADO: Reexibe os elementos */
+
+/* Se o item inteiro (change-item) for secreto, ele volta a ser flex */
+body.admin-mode div.change-item.secret-item {
+  display: flex !important;
+  background-color: #fff0f0; /* Fundo levemente avermelhado para destacar */
+  border-left: 5px solid red;
+}
+
+/* Se apenas um detalhe ou nota for secreto, ele volta a ser block */
+body.admin-mode p.secret-item, 
+body.admin-mode div.palliative-note.secret-item {
+  display: block !important;
+  color: #d32f2f; /* Texto vermelho escuro */
+  background-color: #ffebee;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* Opcional: Adicionar um ícone ou texto antes para indicar que é secreto */
+body.admin-mode .secret-item::before {
+  content: "🔒 [INTERNAL] ";
+  font-weight: bold;
+  font-size: 0.8em;
+  color: red;
+}
     </style>
   </head>
 
@@ -154,6 +246,16 @@
     <header>
       <h1 id="project-name">MVW3000</h1>
       <p>Current Version: v<span id="current-version"></span></p>
+
+<!-- NOVO: Área de Login -->
+  <div class="login-container" id="login-area">
+    <input type="password" id="admin-pass" placeholder="Senha interna" />
+    <button onclick="checkPassword()">Entrar</button>
+  </div>
+  <!-- Mensagem de sucesso (oculta inicialmente) -->
+  <div id="admin-msg" style="display:none; color: #81d4fa; margin-top:5px;">
+    Modo Engenharia Ativado
+  </div>
     </header>
 
     <div class="container">
@@ -317,52 +419,146 @@
       //----------------------------------------------------
       // Renderização HTML do changelog
       //----------------------------------------------------
-      function renderChangelog(data) {
-        document.getElementById("project-name").textContent = data.project_name;
-        document.getElementById("current-version").textContent =
-          data.current_version;
+// --- 1. Função de Verificação de Senha ---
+// Defina sua senha estática aqui
+// Lista de e-mails ou senhas permitidas
+// Nota: Lembre-se que qualquer pessoa que exibir o código-fonte (Ctrl+U) poderá ver esta lista.
+const AUTHORIZED_USERS = [
+  "admin",
+  "julianoz",
+  "gilbertoc",
+  "gustavolg",
+  "e-paraujo",
+  "gleissonjf"
+];
 
-        const c = document.getElementById("changelog-container");
-        c.innerHTML = "";
+function checkPassword() {
+  const inputField = document.getElementById('admin-pass');
+  // Pegamos o valor, removemos espaços em branco nas pontas e convertemos para minúsculo
+  // Isso evita erros se o usuário digitar "Juliano@weg.net" com J maiúsculo.
+  const inputLogin = inputField.value.trim().toLowerCase();
 
-        data.changelog.forEach((v) => {
-          const section = document.createElement("div");
-          section.className = "version-section";
+  // Verifica se o que foi digitado existe na nossa lista
+  if (AUTHORIZED_USERS.includes(inputLogin)) {
+    // Adiciona a classe ao corpo da página que revela os itens ocultos
+    document.body.classList.add('admin-mode');
+    
+    // Esconde a área de login e mostra mensagem de boas-vindas
+    document.getElementById('login-area').style.display = 'none';
+    
+    const msgDiv = document.getElementById('admin-msg');
+    msgDiv.style.display = 'block';
+    //msgDiv.textContent = `Modo Engenharia Ativado: ${inputLogin}`; // Mostra quem logou
+    msgDiv.textContent = `Modo Engenharia Ativado`; // Mostra quem logou
+  } else {
+    alert("E-mail ou senha não autorizados!");
+    inputField.value = ""; // Limpa o campo
+    inputField.focus();    // Coloca o foco de volta para tentar de novo
+  }
+}
 
-          section.innerHTML = `
-            <div class="version-header">
-              <h2>v${v.version}</h2>
-              <span>${v.release_date}</span>
-            </div>
-          `;
+// -------------------------------------------------------
+// Função Auxiliar: Processa tags [INTERNAL]
+// Retorna o texto limpo e um booleano indicando se é secreto
+// -------------------------------------------------------
+function processInternal(text) {
+  if (!text) return { text: "", isSecret: false };
+  
+  // Verifica se a tag existe
+  if (text.includes("[INTERNAL]")) {
+    return {
+      // Remove a tag do texto para exibição limpa
+      text: text.replace("[INTERNAL]", "").trim(),
+      isSecret: true
+    };
+  }
+  
+  return { text: text, isSecret: false };
+}
 
-          v.changes.forEach((ch) => {
-            const typeClass = TYPE_MAP[ch.type] || "type-default";
-            const div = document.createElement("div");
-            div.className = "change-item";
+// -------------------------------------------------------
+// Função Principal: Renderiza o Changelog na tela
+// -------------------------------------------------------
+function renderChangelog(data) {
+  // Atualiza Cabeçalho
+  document.getElementById("project-name").textContent = data.project_name;
+  
+  // Define a versão atual (pega a primeira da lista que NÃO seja Unreleased, ou a primeira de todas)
+  // Lógica: Se a primeira for Unreleased, tentamos pegar a segunda para mostrar no header como "Versão Atual Pública"
+  const publicVersion = data.changelog.find(v => !v.release_date.toLowerCase().includes("unreleased"));
+  document.getElementById("current-version").textContent = publicVersion ? publicVersion.version : data.current_version;
 
-            // CÓDIGO CORRIGIDO (Iterando sobre o array palliative)
-            div.innerHTML = `
-              <div class="change-type ${typeClass}">${ch.type.toUpperCase()}</div>
-              <div>
-                <strong>${ch.summary}</strong>
-                ${ch.details.map((d) => `<p>${d}</p>`).join("")} 
-                ${
-                  ch.palliative && ch.palliative.length > 0
-                    ? ch.palliative
-                        .map((n) => `<div class="palliative-note">${n}</div>`)
-                        .join("")
-                    : ""
-                }
-              </div>
-            `;
+  const c = document.getElementById("changelog-container");
+  c.innerHTML = "";
 
-            section.appendChild(div);
-          });
+  data.changelog.forEach((v) => {
+    const section = document.createElement("div");
+    section.className = "version-section";
 
-          c.appendChild(section);
-        });
+    // 1. Lógica para Versões "Unreleased"
+    // Verifica se a data contém "Unreleased" (ignorando maiúsculas/minúsculas)
+    const isUnreleased = v.release_date && v.release_date.toLowerCase().includes("unreleased");
+    
+    if (isUnreleased) {
+      // Adiciona a classe que o CSS vai ocultar por padrão
+      section.classList.add("version-unreleased");
+    }
+
+    // Cabeçalho da Versão
+    const headerDiv = document.createElement("div");
+    headerDiv.className = "version-header";
+    headerDiv.innerHTML = `
+      <h2>v${v.version}</h2>
+      <span>${v.release_date}</span>
+    `;
+    section.appendChild(headerDiv);
+
+    // 2. Loop pelos itens de mudança
+    v.changes.forEach((ch) => {
+      // Processa o Summary (se for secreto, oculta o bloco todo)
+      const summaryData = processInternal(ch.summary);
+      
+      const typeClass = TYPE_MAP[ch.type] || "type-default";
+      const div = document.createElement("div");
+      div.className = "change-item";
+
+      // Se o summary for secreto, adiciona a classe ao container pai
+      if (summaryData.isSecret) {
+        div.classList.add("secret-item");
       }
+
+      // Processa os Details individualmente
+      const detailsHTML = ch.details.map((d) => {
+        const dData = processInternal(d);
+        // Aplica a classe secret-item apenas neste parágrafo se necessário
+        const secretClass = dData.isSecret ? "secret-item" : "";
+        return `<p class="${secretClass}">${dData.text}</p>`;
+      }).join("");
+
+      // Processa as Notes individualmente
+      const notesHTML = (ch.palliative && ch.palliative.length > 0)
+        ? ch.palliative.map((n) => {
+            const nData = processInternal(n);
+            const secretClass = nData.isSecret ? "secret-item" : "";
+            return `<div class="palliative-note ${secretClass}">${nData.text}</div>`;
+          }).join("")
+        : "";
+
+      div.innerHTML = `
+        <div class="change-type ${typeClass}">${ch.type.toUpperCase()}</div>
+        <div style="width: 100%;">
+          <strong>${summaryData.text}</strong>
+          ${detailsHTML}
+          ${notesHTML}
+        </div>
+      `;
+
+      section.appendChild(div);
+    });
+
+    c.appendChild(section);
+  });
+}
 
       //----------------------------------------------------
       // Mostrar erros de validação do MD
@@ -390,20 +586,6 @@
         .then((r) => r.text())
         .then((text) => {
           const data = parseMarkdown(text);
-
-          // ==========================================
-          // LÓGICA PARA OCULTAR O 'UNRELEASED'
-          // ==========================================
-          const urlParams = new URLSearchParams(window.location.search);
-          const isDebug = urlParams.get('debug') === 'true';
-
-          // Se NÃO for modo debug, removemos a versão Unreleased da lista
-          if (!isDebug) {
-            data.changelog = data.changelog.filter(
-              (v) => !v.release_date.toLowerCase().includes('unreleased')
-            );
-          }
-          // ==========================================
 
           renderValidationErrors(data.errors);
           renderChangelog(data);

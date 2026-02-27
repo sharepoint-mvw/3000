@@ -15,7 +15,7 @@
 
 - summary: Feature Update: HMI notifications
 - details: Added support for on-screen HMI notifications (e.g., bypass due to a manageable fault)
-- note: Reference ticket: [MVW-892](https://jiracloudweg.atlassian.net/browse/MVW-892)
+- note: [INTERNAL] Reference ticket: [MVW-892](https://jiracloudweg.atlassian.net/browse/MVW-892)
 
 ### Added
 
@@ -24,9 +24,9 @@
 
 ### Changed
 
-- summary: Feature Update: Cell DC bus voltages
+- summary: Improvement: Cell DC bus voltages
 - details: Added a moving average filter to the cell DC bus voltage readings to provide a clearer visualization of the bus values
-- note: Reference ticket: [MVW-863](https://jiracloudweg.atlassian.net/browse/MVW-863)
+- note: [INTERNAL] Reference ticket: [MVW-863](https://jiracloudweg.atlassian.net/browse/MVW-863)
 
 ### Fixed
 
@@ -60,7 +60,7 @@
 
 ### Changed
 
-- summary: Feature Update: USB Backup (Copy Function)
+- summary: Improvement: USB Backup (Copy Function)
 - details: Enhanced the COPY function to support USB backups and parameter comparison
 - details: This feature becomes accessible via the HMI menu upon connecting a USB device. Inserting a USB drive automatically triggers a pop-up window with available options
 - note: Note: Saving a backup to the USB drive does not require a password. However, restoring a backup from the USB drive to the inverter requires user login
@@ -83,19 +83,19 @@
 - summary: Feature Update: Thermal Relay Status Monitoring
 - details: Added parameter displaying the status of temperature monitoring channels for the 6 thermal protection relays
 - details: Enables remote monitoring system management of motor temperatures
-- note: Reference ticket: [MVW-757](https://jiracloudweg.atlassian.net/browse/MVW-757)
+- note: [INTERNAL] Reference ticket: [MVW-757](https://jiracloudweg.atlassian.net/browse/MVW-757)
 
 ### Changed
 
 - summary: Improvement: Thermal Sensor Location Configuration
 - details: Introduced bitfield to define the physical installation location of temperature sensors
-- note: Reference ticket: [MVW-841](https://jiracloudweg.atlassian.net/browse/MVW-841)
+- note: [INTERNAL] Reference ticket: [MVW-841](https://jiracloudweg.atlassian.net/browse/MVW-841)
 
 ### Added
 
 - summary: Feature Update: Transformer Thermal Protection
 - details: Added configuration parameters for input transformer thermal protection channels and temperature thresholds
-- note: Reference ticket: [MVW-757](https://jiracloudweg.atlassian.net/browse/MVW-757)
+- note: [INTERNAL] Reference ticket: [MVW-757](https://jiracloudweg.atlassian.net/browse/MVW-757)
 
 ### Changed
 
@@ -109,13 +109,13 @@
 - summary: Bug Fix: Negative Temperature Display
 - details: Resolved display issue where negative temperature readings from thermal relays were shown incorrectly on HMI and network interfaces
 - note: Note: The relay's internal logic and protection mechanisms were functioning correctly; only the display was affected
-- note: Reference ticket: [MVW-843](https://jiracloudweg.atlassian.net/browse/MVW-843)
+- note: [INTERNAL] Reference ticket: [MVW-843](https://jiracloudweg.atlassian.net/browse/MVW-843)
 
 ### Added
 
 - summary: Feature Update: Synchronized Pre-charge Mode
 - details: Added "Grid Synchronization" pre-charge mode. The auxiliary inverter synchronizes with the grid to eliminate inrush current during input transformer connection
-- note: Reference ticket: [MVW-829](https://jiracloudweg.atlassian.net/browse/MVW-829)
+- note: [INTERNAL] Reference ticket: [MVW-829](https://jiracloudweg.atlassian.net/browse/MVW-829)
 
 ### Changed
 
@@ -170,22 +170,22 @@
 
 - summary: Feature Update: Arc Fault Configuration
 - details: Implemented configuration support for Arc Fault protection
-- note: Reference ticket: [MVW-809](https://jiracloudweg.atlassian.net/browse/MVW-809)
+- note: [INTERNAL] Reference ticket: [MVW-809](https://jiracloudweg.atlassian.net/browse/MVW-809)
 
 ### Added
 
 - summary: New Fault Code: CIB Configuration
 - details: Added specific fault code for incorrect CIB configuration
-- note: Reference ticket: [MVW-809](https://jiracloudweg.atlassian.net/browse/MVW-809)
+- note: [INTERNAL] Reference ticket: [MVW-809](https://jiracloudweg.atlassian.net/browse/MVW-809)
 
 ### Added
 
 - summary: New Fault Code: Test Mode Failure
 - details: Added specific fault code for failures occurring during Manageable Fault Tests
-- note: Reference ticket: [MVW-774](https://jiracloudweg.atlassian.net/browse/MVW-774)
+- note: [INTERNAL] Reference ticket: [MVW-774](https://jiracloudweg.atlassian.net/browse/MVW-774)
 
 ### Fixed
 
 - summary: Bug Fix: AUI Parameter Load
 - details: Resolved issues with parameter loading functionality from the AUI board
-- note: Reference ticket: [MVW-832](https://jiracloudweg.atlassian.net/browse/MVW-832)
+- note: [INTERNAL] Reference ticket: [MVW-832](https://jiracloudweg.atlassian.net/browse/MVW-832)

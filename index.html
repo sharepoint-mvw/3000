@@ -164,7 +164,7 @@ body.admin-mode .version-unreleased {
 
 /* Adiciona um selo "RASCUNHO" ou "BETA" visualmente */
 body.admin-mode .version-unreleased::before {
-  content: "Development Version (Unreleased)";
+  content: "UNRELEASED VERSION (In Development)";
   display: block;
   background: #ff9800;
   color: white;
@@ -249,12 +249,12 @@ body.admin-mode .secret-item::before {
 
 <!-- NOVO: Área de Login -->
   <div class="login-container" id="login-area">
-    <input type="password" id="admin-pass" placeholder="Senha interna" />
-    <button onclick="checkPassword()">Entrar</button>
+    <input type="password" id="admin-pass" placeholder="Password" />
+    <button onclick="checkPassword()">Login</button>
   </div>
   <!-- Mensagem de sucesso (oculta inicialmente) -->
   <div id="admin-msg" style="display:none; color: #81d4fa; margin-top:5px;">
-    Modo Engenharia Ativado
+    Engineering Mode Enabled
   </div>
     </header>
 
@@ -451,9 +451,9 @@ function checkPassword() {
     const msgDiv = document.getElementById('admin-msg');
     msgDiv.style.display = 'block';
     //msgDiv.textContent = `Modo Engenharia Ativado: ${inputLogin}`; // Mostra quem logou
-    msgDiv.textContent = `Modo Engenharia Ativado`; // Mostra quem logou
+    msgDiv.textContent = `Engineering Mode Enabled`; // Mostra quem logou
   } else {
-    alert("E-mail ou senha não autorizados!");
+    alert("Unauthorized!");
     inputField.value = ""; // Limpa o campo
     inputField.focus();    // Coloca o foco de volta para tentar de novo
   }

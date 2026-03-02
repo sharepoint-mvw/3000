@@ -57,6 +57,7 @@
 
 - summary: Firmware Standardization: HMI Versioning
 - details: Harmonized HMI firmware versioning to align with the standard vX.XX.XX format used by other boards
+- note: Note: Up to the previous version, the versioning pattern used was vX.XX.XX r XXX
 
 ### Changed
 

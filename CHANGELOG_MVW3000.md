@@ -2,6 +2,18 @@
 
 ### Added
 
+- summary: Network Bridge Configuration
+- details: Added interface support for configuring the network bridge mode on the HMI ethernet communication ports
+- note: Note: This configuration does not affect the AUI board Ethernet ports
+
+### Deprecated
+
+- summary: HMI Serial Communication
+- details: The serial communication interface information has been deprecated (Menu/ Config./ Comm. Settings/ Serial)
+- note: Note: The RS-485 serial configuration is fixed and exclusively dedicated to communication with the AUI board. The RS-232 interface has no functionality in this product
+
+### Added
+
 - summary: Feature Update: Bypass signaling
 - details: Added a visual flag in the HMI header to indicate when cell bypass is active
 

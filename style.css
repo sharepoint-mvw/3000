@@ -1,0 +1,234 @@
+:root {
+  --primary-color: #0056b3;
+  --secondary-color: #f4f4f9;
+  --text-color: #333;
+  --border-color: #ddd;
+  --correction-color: #dc3545;
+  --improvement-color: #ffc107;
+  --feature-color: #28a745;
+  --deprecated-color: #6a1b9a;
+  --removed-color: #000;
+  --security-color: #ff5722;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.2em;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.error-box {
+  background: #fff0f0;
+  color: #a00;
+  border-left: 5px solid red;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.version-section {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 25px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.version-header {
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.change-item {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: flex-start;
+}
+
+.change-type {
+  min-width: 120px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.8em;
+  text-align: center;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.type-fixed {
+  background-color: var(--correction-color);
+  color: white;
+}
+
+.type-changed {
+  background-color: var(--improvement-color);
+  color: #000;
+}
+
+.type-added {
+  background-color: var(--feature-color);
+  color: white;
+}
+
+.type-deprecated {
+  background-color: var(--deprecated-color);
+  color: white;
+}
+
+.type-removed {
+  background-color: var(--removed-color);
+  color: white;
+}
+
+.type-security {
+  background-color: var(--security-color);
+  color: white;
+}
+
+.type-default {
+  background-color: #888;
+  color: white;
+}
+
+.palliative-note {
+  font-style: italic;
+  color: #808080;
+  margin-top: 5px;
+  font-size: 0.9em;
+  border-left: 3px solid #ccc;
+  padding-left: 8px;
+}
+
+.change-item a {
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--primary-color);
+  font-weight: bold;
+}
+
+.change-item a:hover {
+  text-decoration: underline;
+}
+
+/* --- VERSÕES UNRELEASED (Não Lançadas) --- */
+
+/* Por padrão, esconde a seção inteira se for Unreleased */
+.version-unreleased {
+  display: none;
+}
+
+/* Quando o modo Admin (Engenharia) está ativo via Login: */
+body.admin-mode .version-unreleased {
+  display: block !important;
+  border: 2px dashed #ff9800; /* Borda laranja tracejada para indicar rascunho */
+  background-color: #fff8e1;  /* Fundo amarelado */
+  position: relative;
+}
+
+/* Adiciona um selo "RASCUNHO" ou "BETA" visualmente */
+body.admin-mode .version-unreleased::before {
+  content: "UNRELEASED VERSION (In Development)";
+  display: block;
+  background: #ff9800;
+  color: white;
+  font-weight: bold;
+  padding: 2px 10px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+/* Classe para itens ocultos */
+.secret-item {
+  display: none; /* Oculto por padrão */
+  border-left: 5px solid #ff0000; /* Borda vermelha para identificar */
+  background-color: #fff5f5;
+}
+
+/* Quando o corpo da página tiver a classe 'admin-mode', mostra os itens */
+body.admin-mode .secret-item {
+  display: flex; /* Volta a exibir */
+}
+
+/* Estilo simples para o login no header */
+.login-container {
+  margin-top: 10px;
+  font-size: 0.8em;
+}
+.login-container input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.login-container button {
+  padding: 5px 10px;
+  background-color: #004085; /* Cor escura WEG */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* --- ESTILOS DE SEGURANÇA --- */
+
+/* Oculta qualquer elemento marcado como secreto por padrão */
+.secret-item {
+  display: none !important;
+}
+
+/* MODO ADMIN ATIVADO: Reexibe os elementos */
+
+/* Se o item inteiro (change-item) for secreto, ele volta a ser flex */
+body.admin-mode div.change-item.secret-item {
+  display: flex !important;
+  background-color: #fff0f0; /* Fundo levemente avermelhado para destacar */
+  border-left: 5px solid red;
+}
+
+/* Se apenas um detalhe ou nota for secreto, ele volta a ser block */
+body.admin-mode p.secret-item, 
+body.admin-mode div.palliative-note.secret-item {
+  display: block !important;
+  color: #d32f2f; /* Texto vermelho escuro */
+  background-color: #ffebee;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* Opcional: Adicionar um ícone ou texto antes para indicar que é secreto */
+body.admin-mode .secret-item::before {
+  content: "🔒 [INTERNAL] ";
+  font-weight: bold;
+  font-size: 0.8em;
+  color: red;
+}

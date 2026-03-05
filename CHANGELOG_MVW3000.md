@@ -1,3 +1,11 @@
+## [3.03.07] - Unreleased
+
+### Added
+
+- summary: Feature Update: HMI notifications
+- details: Added support for on-screen HMI notifications (e.g., bypass due to a manageable fault)
+- note: [INTERNAL] Reference ticket: [MVW-892](https://jiracloudweg.atlassian.net/browse/MVW-892)
+
 ## [3.03.06] - Unreleased
 
 ### Added
@@ -28,12 +36,6 @@
 - summary: Feature Update: Temperature units
 - details: Added a field to select the temperature unit (°C or °F)
 - note: Note: The selected unit is stored retentively and applies to all temperature parameters
-
-### Added
-
-- summary: Feature Update: HMI notifications
-- details: Added support for on-screen HMI notifications (e.g., bypass due to a manageable fault)
-- note: [INTERNAL] Reference ticket: [MVW-892](https://jiracloudweg.atlassian.net/browse/MVW-892)
 
 ### Added
 

@@ -15,7 +15,7 @@
 
       <!-- Área de Login -->
       <div class="login-container" id="login-area">
-        <input type="password" id="admin-pass" placeholder="Password" />
+        <input type="password" id="admin-pass" placeholder="Password"  onkeypress="if(event.key === 'Enter') checkPassword()"/>
         <button onclick="checkPassword()">Login</button>
       </div>
       

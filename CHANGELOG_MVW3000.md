@@ -2,6 +2,12 @@
 
 ### Added
 
+- summary: Scalar control for PM motor
+- details: The PMSM control menus were updated and new parameters were added to adjust reactive current, open-loop synchronization (speed/wait time), speed-hold behavior, angular delay compensation (A/B coefficients), and the Id/Iq low-pass filter time constant, as well as hysteresis between the OPP/SHE modulation tables
+- note: [INTERNAL] Reference ticket: [MVW-785](https://jiracloudweg.atlassian.net/browse/MVW-785)
+
+### Added
+
 - summary: Network Bridge Configuration
 - details: Added interface support for configuring the network bridge mode on the HMI ethernet communication ports
 - note: Note: This configuration does not affect the AUI board Ethernet ports
@@ -21,7 +27,7 @@
 
 - summary: Feature Update: Temperature units
 - details: Added a field to select the temperature unit (°C or °F)
-- note: Note: The selected unit is stored retentively and applies to all HMI temperature parameters
+- note: Note: The selected unit is stored retentively and applies to all temperature parameters
 
 ### Added
 

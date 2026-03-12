@@ -6,6 +6,11 @@
 - details: Added support for on-screen HMI notifications (e.g., bypass due to a manageable fault)
 - note: [INTERNAL] Reference ticket: [MVW-892](https://jiracloudweg.atlassian.net/browse/MVW-892)
 
+### Added
+
+- summary: Feature Update: Test mode (Automatic cycle)
+- details: Added an automatic cycle function (load test), where the inverter cycles from 0 to the speed reference, allowing for rotation reversal
+
 ## [3.03.06] - Unreleased
 
 ### Added
@@ -36,11 +41,6 @@
 - summary: Feature Update: Temperature units
 - details: Added a field to select the temperature unit (°C or °F)
 - note: Note: The selected unit is stored retentively and applies to all temperature parameters
-
-### Added
-
-- summary: Feature Update: Test mode (Automatic cycle)
-- details: Added an automatic cycle function (load test), where the inverter cycles from 0 to the speed reference, allowing for rotation reversal
 
 ### Changed
 

@@ -33,6 +33,7 @@ function parseMarkdown(mdText) {
 
   const versionRegex = /^## \[(.*?)\] - (.*)$/;
   const typeRegex = /^### (.*)$/;
+  const urlRegex = /^- url:\s*(.*)$/i;
   const summaryRegex = /^- summary:\s*(.*)$/i;
   const detailsRegex = /^- details:\s*(.*)$/i;
   const noteRegex = /^- note:\s*(.*)$/i;
@@ -70,6 +71,14 @@ function parseMarkdown(mdText) {
       currentType = null;
       currentChange = null;
       return;
+    }
+
+    const urlMatch = urlRegex.exec(line);
+    if (urlMatch) {
+        if (currentVersionBlock) {
+            currentVersionBlock.download_url = urlMatch[1].trim();
+        }
+        return;
     }
 
     const tMatch = typeRegex.exec(line);
@@ -213,8 +222,12 @@ function renderChangelog(data) {
 
     const headerDiv = document.createElement("div");
     headerDiv.className = "version-header";
+    const versionTitle = v.download_url 
+      ? `<a href="${v.download_url}" target="_blank" style="color: inherit; text-decoration: none;">v${v.version}</a>`
+      : `v${v.version}`;
+
     headerDiv.innerHTML = `
-      <h2>v${v.version}</h2>
+      <h2>${versionTitle}</h2>
       <span>${v.release_date}</span>
     `;
     section.appendChild(headerDiv);

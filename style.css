@@ -66,6 +66,11 @@ header h1 {
   align-items: center;
 }
 
+.version-header h2 a:hover {
+  text-decoration: underline !important;
+  color: var(--primary-color) !important;
+}
+
 .change-item {
   display: flex;
   margin-bottom: 15px;

@@ -55,6 +55,7 @@
 - note: Note: Without a valid serial number configured, the HMI will prompt for it again upon the next startup
 
 ## [3.03.05] - 2026-01-28
+- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQAU80k1vqaoRJB4J7D5Q-CbAdcjrGU2YNE6qiyHKcbI0bw?e=7c6D7s
 
 ### Changed
 
@@ -92,6 +93,7 @@
 - details: Added parameter to display CCE board temperature, distinguishing it from AUI CPU temperature data
 
 ## [3.03.04] - 2025-12-12
+- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQD_mVehmbR2Sam7I9OVw6fjAc9HSHaryCpXwTrtxm7LVdk?e=dNJER8
 
 ### Added
 
@@ -124,6 +126,7 @@
 - details: Phase loss detection is now enabled by default in the factory configuration
 
 ## [3.03.03] - 2025-11-24
+- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQBnkHXxytNdRJgm266H63yvAW10X0QFNI7R3cseINEREDo?e=yrxd1R
 
 ### Fixed
 
@@ -149,6 +152,7 @@
 - details: Deprecated F0006 (Mains Unbalance/Phase Loss) in favor of newer protection logic
 
 ## [3.03.02] - 2025-11-13
+- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQBKM0T61VLqSJRywQ54wCmcAejJxdPWXAGfCiZnoO-pgW8?e=7CU6ms
 
 ### Fixed
 

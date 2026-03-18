@@ -223,7 +223,7 @@ function renderChangelog(data) {
     const headerDiv = document.createElement("div");
     headerDiv.className = "version-header";
     const versionTitle = v.download_url 
-      ? `<a href="${v.download_url}" target="_blank" style="color: inherit; text-decoration: none;">v${v.version}</a>`
+      ? `<a href="${v.download_url}" target="_blank" style="color: inherit; text-decoration: none;">v${v.version} 🔗</a>`
       : `v${v.version}`;
 
     headerDiv.innerHTML = `

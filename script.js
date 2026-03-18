@@ -154,14 +154,15 @@ function parseMarkdown(mdText) {
 
 // --- 1. Função de Verificação de Senha ---
 const AUTHORIZED_USERS = [
-  "admin",
-  "julianoz",
-  "gilbertoc",
-  "gustavolg",
+  "allan",
   "e-paraujo",
+  "gilbertoc",
   "gleissonjf",
-  "msari",
-  "jamesd"
+  "gustavolg",
+  "jamesd",
+  "julianoz",
+  "mfbueno",
+  "msari"
 ];
 
 function checkPassword() {

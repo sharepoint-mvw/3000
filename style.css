@@ -237,3 +237,31 @@ body.admin-mode .secret-item::before {
   font-size: 0.8em;
   color: red;
 }
+
+#backToTop {
+  display: none; /* Escondido por padrão */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: var(--primary-color); /* Usa a cor azul do seu header */
+  color: white;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+#backToTop:hover {
+  background-color: #004085; /* Tom mais escuro para o hover */
+}
+
+/* Garante que o scroll da página seja suave */
+html {
+  scroll-behavior: smooth;
+}

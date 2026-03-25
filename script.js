@@ -311,3 +311,21 @@ fetch("CHANGELOG_MVW3000.md")
     `;
     console.error(err);
   });
+
+  // Monitora a rolagem para mostrar/esconder o botão
+window.onscroll = function() {
+  const btn = document.getElementById("backToTop");
+  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+};
+
+// Função para rolar suavemente até o topo
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}

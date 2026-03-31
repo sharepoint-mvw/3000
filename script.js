@@ -156,6 +156,7 @@ function parseMarkdown(mdText) {
 const AUTHORIZED_USERS = [
   "allan",
   "e-paraujo",
+  "erwin",
   "gilbertoc",
   "gleissonjf",
   "gustavolg",

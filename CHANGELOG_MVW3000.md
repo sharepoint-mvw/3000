@@ -12,7 +12,7 @@
 - details: Added an automatic cycle function (load test), where the inverter cycles from 0 to the speed reference, allowing for rotation reversal
 
 ## [3.03.06] - 2026-03-18
-- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQAn4qcy1f-sRJdEjxFS3jZ9ARTTmGnOLvi_dDTLxY4xju0?e=Xzc9Tv
+- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQApyf9bMBdESpY7aMMeTv31AeCUr6XWXH66a434-RR-ETA?e=a3NMSV
 
 ### Added
 

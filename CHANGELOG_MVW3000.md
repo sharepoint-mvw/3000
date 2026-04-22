@@ -13,6 +13,7 @@
 
 ## [3.03.06] - 2026-03-18
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQApyf9bMBdESpY7aMMeTv31AeCUr6XWXH66a434-RR-ETA?e=a3NMSV
+- package: HMI=3.03.06, AUI=3.03.06, CCE=3.03.06, CCE FPGA=1.01.02, CIB=1.00.05
 
 ### Added
 
@@ -57,6 +58,7 @@
 
 ## [3.03.05] - 2026-01-28
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQAU80k1vqaoRJB4J7D5Q-CbAdcjrGU2YNE6qiyHKcbI0bw?e=7c6D7s
+- package: HMI=3.03.05, AUI=3.03.05, CCE=3.03.05, CCE FPGA=1.01.02
 
 ### Changed
 
@@ -95,6 +97,7 @@
 
 ## [3.03.04] - 2025-12-12
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQD_mVehmbR2Sam7I9OVw6fjAc9HSHaryCpXwTrtxm7LVdk?e=dNJER8
+- package: HMI=3.03.03, AUI=3.03.04, CCE=3.03.04, CCE FPGA=1.01.02
 
 ### Added
 
@@ -128,6 +131,7 @@
 
 ## [3.03.03] - 2025-11-24
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQBnkHXxytNdRJgm266H63yvAW10X0QFNI7R3cseINEREDo?e=yrxd1R
+- package: HMI=3.03.03, AUI=3.03.03, CCE=3.03.03, CCE FPGA=1.01.02
 
 ### Fixed
 
@@ -154,6 +158,7 @@
 
 ## [3.03.02] - 2025-11-13
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQBKM0T61VLqSJRywQ54wCmcAejJxdPWXAGfCiZnoO-pgW8?e=7CU6ms
+- package: HMI=3.03.02, AUI=3.03.02, CCE=3.03.02
 
 ### Fixed
 

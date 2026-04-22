@@ -265,3 +265,49 @@ body.admin-mode .secret-item::before {
 html {
   scroll-behavior: smooth;
 }
+
+/* Estilo para a pílula de pacotes */
+.package-badge {
+  display: none; /* Escondido por padrão */
+  background-color: #007bff; /* Azul vibrante */
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: bold;
+  margin-top: 8px;
+  width: fit-content;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #0056b3;
+}
+
+/* Exibe apenas quando o body tem a classe admin-mode */
+body.admin-mode .package-badge {
+  display: inline-block;
+}
+
+/* Container para as pílulas */
+.package-container {
+  display: none; /* Escondido por padrão */
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* Exibe o container apenas no modo admin */
+body.admin-mode .package-container {
+  display: flex;
+}
+
+/* Estilo individual da pílula */
+.package-badge {
+  background-color: #015dc0;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.7em;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #0056b3;
+  white-space: nowrap;
+}

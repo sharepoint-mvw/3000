@@ -38,6 +38,8 @@ function parseMarkdown(mdText) {
   const detailsRegex = /^- details:\s*(.*)$/i;
   const noteRegex = /^- note:\s*(.*)$/i;
 
+  const packageRegex = /^- package:\s*(.*)$/i;
+
   let currentVersionBlock = null;
   let currentType = null;
   let currentChange = null;
@@ -77,6 +79,14 @@ function parseMarkdown(mdText) {
     if (urlMatch) {
         if (currentVersionBlock) {
             currentVersionBlock.download_url = urlMatch[1].trim();
+        }
+        return;
+    }
+
+    const pkgMatch = packageRegex.exec(line);
+    if (pkgMatch) {
+        if (currentVersionBlock) {
+            currentVersionBlock.package_info = pkgMatch[1].trim();
         }
         return;
     }
@@ -224,14 +234,33 @@ function renderChangelog(data) {
 
     const headerDiv = document.createElement("div");
     headerDiv.className = "version-header";
+
     const versionTitle = v.download_url 
       ? `<a href="${v.download_url}" target="_blank" style="color: inherit; text-decoration: none;">v${v.version} 🔗</a>`
       : `v${v.version}`;
 
-    headerDiv.innerHTML = `
-      <h2>${versionTitle}</h2>
-      <span>${v.release_date}</span>
+    // Criamos a estrutura base do header
+    let headerHTML = `
+      <div style="width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2>${versionTitle}</h2>
+          <span>${v.release_date}</span>
+        </div>
     `;
+
+    // Se houver informação de pacotes, separamos por vírgula e criamos os badges
+    if (v.package_info) {
+      const packages = v.package_info.split(','); // Divide a string em array
+      
+      headerHTML += `<div class="package-container">`;
+      packages.forEach(pkg => {
+        headerHTML += `<span class="package-badge">${pkg.trim()}</span>`;
+      });
+      headerHTML += `</div>`;
+    }
+
+    headerHTML += `</div>`;
+    headerDiv.innerHTML = headerHTML;
     section.appendChild(headerDiv);
 
     v.changes.forEach((ch) => {

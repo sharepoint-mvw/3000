@@ -8,7 +8,7 @@
 
 ## [3.04.01] - 2026-04-24
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQDRZcQElxCWRbRi5i4y64YHAf2FluUspJXduCiUtbX2AnI?e=IKIEyS
-- package: HMI=3.03.07, AUI=3.03.07, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05
+- package: HMI=3.04.01, AUI=3.04.01, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05
 
 ### Fixed
 
@@ -19,7 +19,7 @@
 ### Fixed
 - summary: Bug Fix: Filter to prevent false reference limitation alarms
 - details: Implementation of a filter to detect when the speed reference is being limited. The goal is to prevent false triggering of alarm A2439 in situations where simultaneous reference changes occur
-- note: Note: For example, when the same digital input (DI) is used to select both multispeed and the reference source (R1/R2), causing a momentary limiting peak during the transition
+- note: Note: For example, the same DI used for multispeed and R1/R2 selection. If the DI set the multispeed reference for a value greater than the max effective, but the R2 reference is lower, for a brief moment the inverter identify that the reference is being limited (due to the multispeed change) before getting normalized again (when the mode passes from R1 to R2).
 
 ### Changed
 - summary: Change level of 24V overvoltage alarm

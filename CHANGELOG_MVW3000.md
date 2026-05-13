@@ -1,4 +1,39 @@
-## [3.03.07] - Unreleased
+## [3.04.02] - Unreleased
+
+### Changed
+
+- summary: App alarm
+- details: Clean user and app alarm when the application is stopped or deleted
+- note: [INTERNAL] Note: Tested using a ladder program to set an alarm when a DI is active. If we keep the DI active, the user alarm (tested with A750) is set. In this moment, either stopping or erasing the program keeps the A750 active, even when the DI is set to LOW level.
+
+## [3.04.01] - 2026-04-24
+- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQDRZcQElxCWRbRi5i4y64YHAf2FluUspJXduCiUtbX2AnI?e=IKIEyS
+- package: HMI=3.03.07, AUI=3.03.07, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05
+
+### Fixed
+
+- summary: Bug Fix: SWAP for 1-byte Parameters in PROFINET and PROFIBUS
+- details: Fix issue related to parameters with one byte only and big-endian networks
+- note: [INTERNAL] Note: Data shown by PROFINET and PROFIBUS networks was not right when programmed parameter had the size of one byte. Implemented data swap for such cases as well
+
+### Fixed
+- summary: Bug Fix: False speed reference limitation
+- details: Add filter to detect when the speed reference is being limited, this is necessary to avoid false alarm A2439 detection when two changes over the reference happen at the same time.
+- note: Note: For example, the same DI used for multispeed and R1/R2 selection. If the DI set the multispeed reference for a value greater than the max effective, but the R2 reference is lower, for a brief moment the inverter identify that the reference is being limited (due to the multispeed change) before getting normalized again (when the mode passes from R1 to R2).
+
+### Changed
+- summary: Change level of 24V overvoltage alarm
+- details: From 27.4V to 28.6V
+
+## [3.03.07] - 2026-04-18
+- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQA5LWB0LAV3TrFkSCy9OIhxAQ37YmWTHbehzq9b4jMOAoU?e=Eknu6q
+- package: HMI=3.03.07, AUI=3.03.07, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05
+
+### Changed
+
+- summary: Improvement: Cell DC bus voltages
+- details: Added a moving average filter to the cell DC bus voltage readings to provide a clearer visualization of the bus values
+- note: [INTERNAL] Reference ticket: [MVW-863](https://jiracloudweg.atlassian.net/browse/MVW-863)
 
 ### Added
 

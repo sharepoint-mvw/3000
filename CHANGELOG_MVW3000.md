@@ -17,9 +17,9 @@
 - note: [INTERNAL] Note: Data shown by PROFINET and PROFIBUS networks was not right when programmed parameter had the size of one byte. Implemented data swap for such cases as well
 
 ### Fixed
-- summary: Bug Fix: False speed reference limitation
-- details: Add filter to detect when the speed reference is being limited, this is necessary to avoid false alarm A2439 detection when two changes over the reference happen at the same time.
-- note: Note: For example, the same DI used for multispeed and R1/R2 selection. If the DI set the multispeed reference for a value greater than the max effective, but the R2 reference is lower, for a brief moment the inverter identify that the reference is being limited (due to the multispeed change) before getting normalized again (when the mode passes from R1 to R2).
+- summary: Bug Fix: Filter to prevent false reference limitation alarms
+- details: Implementation of a filter to detect when the speed reference is being limited. The goal is to prevent false triggering of alarm A2439 in situations where simultaneous reference changes occur
+- note: Note: For example, when the same digital input (DI) is used to select both multispeed and the reference source (R1/R2), causing a momentary limiting peak during the transition
 
 ### Changed
 - summary: Change level of 24V overvoltage alarm

@@ -6,6 +6,11 @@
 - details: Clean user and app alarm when the application is stopped or deleted
 - note: [INTERNAL] Note: Tested using a ladder program to set an alarm when a DI is active. If we keep the DI active, the user alarm (tested with A750) is set. In this moment, either stopping or erasing the program keeps the A750 active, even when the DI is set to LOW level.
 
+### Added
+
+- summary: Feature Update: Global fault reset parameter
+- details: Added a parameter that allows resetting all inverter faults with a single command. On the HMI, a button was added to the fault notification to make resetting easier, without the need to navigate to the corresponding menu
+
 ## [3.04.01] - 2026-04-24
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQDRZcQElxCWRbRi5i4y64YHAf2FluUspJXduCiUtbX2AnI?e=IKIEyS
 - package: HMI=3.04.01, AUI=3.04.01, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05

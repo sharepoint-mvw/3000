@@ -24,7 +24,7 @@
 ### Fixed
 - summary: Bug Fix: Filter to prevent false reference limitation alarms
 - details: Implementation of a filter to detect when the speed reference is being limited. The goal is to prevent false triggering of alarm A2439 in situations where simultaneous reference changes occur
-- note: Note: For example, the same DI used for multispeed and R1/R2 selection. If the DI set the multispeed reference for a value greater than the max effective, but the R2 reference is lower, for a brief moment the inverter identify that the reference is being limited (due to the multispeed change) before getting normalized again (when the mode passes from R1 to R2).
+- note: Note: For example, the same DI used for multispeed and R1/R2 selection. If the DI set the multispeed reference for a value greater than the max effective, but the R2 reference is lower, for a brief moment the inverter identify that the reference is being limited (due to the multispeed change) before getting normalized again (when the mode passes from R1 to R2)
 
 ### Changed
 - summary: Change level of 24V overvoltage alarm

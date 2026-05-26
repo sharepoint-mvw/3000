@@ -173,7 +173,8 @@ const AUTHORIZED_USERS = [
   "jamesd",
   "julianoz",
   "mfbueno",
-  "msari"
+  "msari",
+  "chenyicong"
 ];
 
 function checkPassword() {

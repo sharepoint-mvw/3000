@@ -30,31 +30,28 @@
 - summary: Change level of 24V overvoltage alarm
 - details: From 27.4V to 28.6V
 
-### Changed
-- summary: HMI speed reference
-- details: Improvement in the HMI speed reference input interface, allowing for values above 9999 rpm
-- note: Note: Although the numeric keypad is limited to 9999 rpm, the speed reference can be adjusted using the HMI (+) and (-) buttons up to the maximum speed limit, even if it exceeds 9999 rpm
-
 ## [3.03.07] - 2026-04-18
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQA5LWB0LAV3TrFkSCy9OIhxAQ37YmWTHbehzq9b4jMOAoU?e=Eknu6q
 - package: HMI=3.03.07, AUI=3.03.07, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05
 
 ### Changed
-
 - summary: Improvement: Cell DC bus voltages
 - details: Added a moving average filter to the cell DC bus voltage readings to provide a clearer visualization of the bus values
 - note: [INTERNAL] Reference ticket: [MVW-863](https://jiracloudweg.atlassian.net/browse/MVW-863)
 
 ### Added
-
 - summary: Feature Update: HMI notifications
 - details: Added support for on-screen HMI notifications (e.g., bypass due to a manageable fault)
 - note: [INTERNAL] Reference ticket: [MVW-892](https://jiracloudweg.atlassian.net/browse/MVW-892)
 
 ### Added
-
 - summary: Feature Update: Test mode (Automatic cycle)
 - details: Added an automatic cycle function (load test), where the inverter cycles from 0 to the speed reference, allowing for rotation reversal
+
+### Changed
+- summary: HMI speed reference
+- details: Improvement in the HMI speed reference input interface, allowing for values above 9999 rpm
+- note: Note: Although the numeric keypad is limited to 9999 rpm, the speed reference can be adjusted using the HMI (+) and (-) buttons up to the maximum speed limit, even if it exceeds 9999 rpm
 
 ## [3.03.06] - 2026-03-18
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQApyf9bMBdESpY7aMMeTv31AeCUr6XWXH66a434-RR-ETA?e=a3NMSV

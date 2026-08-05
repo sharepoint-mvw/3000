@@ -165,6 +165,7 @@ function parseMarkdown(mdText) {
 // --- 1. Função de Verificação de Senha ---
 const AUTHORIZED_USERS = [
   "allan",
+  "cristinasd",
   "e-paraujo",
   "erwin",
   "gilbertoc",

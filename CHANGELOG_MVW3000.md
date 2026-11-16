@@ -30,6 +30,38 @@
 - summary: Change level of 24V overvoltage alarm
 - details: From 27.4V to 28.6V
 
+## [3.05.00] - Unreleased
+
+### Added
+
+- summary: Feature Update: PLC200 and ORZ thermal relays
+- details: Added support for PLC200 and ORZ thermal relays, including PLC200 channel scale check and report of a PLC200 slot that fails to answer
+- details: Added read-only parameters displaying the status of the thermal relay channels, starting at parameter 467
+- note: [INTERNAL] Reference tickets: [MVW-403](https://jiracloudweg.atlassian.net/browse/MVW-403), [MVW-312](https://jiracloudweg.atlassian.net/browse/MVW-312), [MVW-861](https://jiracloudweg.atlassian.net/browse/MVW-861), [MVW-862](https://jiracloudweg.atlassian.net/browse/MVW-862)
+- note: [INTERNAL] Thermal relay module was split into serial, channel, interface and per-relay driver files, and the thermal relay RS485 link parity was set to none
+
+- summary: Feature Update: Input transformer thermal protection
+- details: Added parameters 500 and 501 to configure the input transformer thermal protection
+- note: [INTERNAL] Reference tickets: [MVW-803](https://jiracloudweg.atlassian.net/browse/MVW-803), [MVW-807](https://jiracloudweg.atlassian.net/browse/MVW-807), [MVW-841](https://jiracloudweg.atlassian.net/browse/MVW-841)
+
+- summary: New Fault Code: ACCSE configuration
+- details: Added fault code 3502, indicated when the ACCSE accessory is configured
+
+### Changed
+
+- summary: Improvement: Parameter tree reorganization
+- details: The parameter tree was reorganized. Menu codes of the speed, flux and current regulator gains and of the Ld, Lq and Ke parameters were changed
+- note: Note: Verify the parameter menu locations after the update
+
+### Removed
+
+- summary: Parameter Update: Per-relay thermal protection parameters
+- details: Removed parameters 390, 391, 392, 497, 498 and 499 (per-relay thermal protection), replaced by the new thermal relay channel status parameters and the input transformer thermal protection configuration
+- note: Note: After updating, reconfigure the thermal protection using the new parameters
+
+- summary: Fault Code Update: Removed fault codes 352 and 2329
+- details: Removed fault code 352 (insufficient voltage for electronic dynamometer operation) and fault code 2329 (encoder)
+
 ## [3.03.07] - 2026-04-18
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQA5LWB0LAV3TrFkSCy9OIhxAQ37YmWTHbehzq9b4jMOAoU?e=Eknu6q
 - package: HMI=3.03.07, AUI=3.03.07, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05

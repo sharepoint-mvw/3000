@@ -30,7 +30,7 @@
 - summary: Change level of 24V overvoltage alarm
 - details: From 27.4V to 28.6V
 
-## [3.05.00] - Unreleased
+## [3.05.00]
 
 ### Added
 

@@ -11,27 +11,10 @@
 - summary: Feature Update: Global fault reset parameter
 - details: Added a parameter that allows resetting all inverter faults with a single command. On the HMI, a button was added to the fault notification to make resetting easier, without the need to navigate to the corresponding menu
 
-## [3.04.01] - 2026-04-24
-- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQDRZcQElxCWRbRi5i4y64YHAf2FluUspJXduCiUtbX2AnI?e=IKIEyS
-- package: HMI=3.04.01, AUI=3.04.01, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05
-
-### Fixed
-
-- summary: Bug Fix: SWAP for 1-byte Parameters in PROFINET and PROFIBUS
-- details: Fix issue related to parameters with one byte only and big-endian networks
-- note: [INTERNAL] Note: Data shown by PROFINET and PROFIBUS networks was not right when programmed parameter had the size of one byte. Implemented data swap for such cases as well
-
-### Fixed
-- summary: Bug Fix: Filter to prevent false reference limitation alarms
-- details: Implementation of a filter to detect when the speed reference is being limited. The goal is to prevent false triggering of alarm A2439 in situations where simultaneous reference changes occur
-- note: Note: For example, the same DI used for multispeed and R1/R2 selection. If the DI set the multispeed reference for a value greater than the max effective, but the R2 reference is lower, for a brief moment the inverter identify that the reference is being limited (due to the multispeed change) before getting normalized again (when the mode passes from R1 to R2)
-
-### Changed
-- summary: Change level of 24V overvoltage alarm
-- details: From 27.4V to 28.6V
-
-## [3.05.00]
-
+## [3.05.00] - 2026-11-16
+- url: [https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQDRZcQElxCWRbRi5i4y64YHAf2FluUspJXduCiUtbX2AnI?e=IKIEyS](https://weg365.sharepoint.com/teams/BR-WAU-INDENG-SWFWAPP/Documentos%20Compartilhados/Forms/AllItems.aspx?id=%2Fteams%2FBR%2DWAU%2DINDENG%2DSWFWAPP%2FDocumentos%20Compartilhados%2FMedium%20Voltage%20Drives%2FMVW3000%2FFirmware%2Fv3%2E05&viewid=7695db97%2D205e%2D481e%2D96ed%2D551dbfc276f3)
+- package: HMI=3.05.02, AUI=3.05.04, CCE=3.05.00, CCE FPGA=1.01.02, CIB=1.00.05
+- 
 ### Added
 
 - summary: Feature Update: PLC200 and ORZ thermal relays
@@ -61,6 +44,26 @@
 
 - summary: Fault Code Update: Removed fault codes 352 and 2329
 - details: Removed fault code 352 (insufficient voltage for electronic dynamometer operation) and fault code 2329 (encoder)
+
+
+## [3.04.01] - 2026-04-24
+- url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQDRZcQElxCWRbRi5i4y64YHAf2FluUspJXduCiUtbX2AnI?e=IKIEyS
+- package: HMI=3.04.01, AUI=3.04.01, CCE=3.03.07, CCE FPGA=1.01.02, CIB=1.00.05
+
+### Fixed
+
+- summary: Bug Fix: SWAP for 1-byte Parameters in PROFINET and PROFIBUS
+- details: Fix issue related to parameters with one byte only and big-endian networks
+- note: [INTERNAL] Note: Data shown by PROFINET and PROFIBUS networks was not right when programmed parameter had the size of one byte. Implemented data swap for such cases as well
+
+### Fixed
+- summary: Bug Fix: Filter to prevent false reference limitation alarms
+- details: Implementation of a filter to detect when the speed reference is being limited. The goal is to prevent false triggering of alarm A2439 in situations where simultaneous reference changes occur
+- note: Note: For example, the same DI used for multispeed and R1/R2 selection. If the DI set the multispeed reference for a value greater than the max effective, but the R2 reference is lower, for a brief moment the inverter identify that the reference is being limited (due to the multispeed change) before getting normalized again (when the mode passes from R1 to R2)
+
+### Changed
+- summary: Change level of 24V overvoltage alarm
+- details: From 27.4V to 28.6V
 
 ## [3.03.07] - 2026-04-18
 - url: https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQA5LWB0LAV3TrFkSCy9OIhxAQ37YmWTHbehzq9b4jMOAoU?e=Eknu6q

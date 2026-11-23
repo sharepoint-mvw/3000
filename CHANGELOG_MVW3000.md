@@ -14,7 +14,7 @@
 ## [3.05.00] - 2026-11-16
 - url: [https://weg365.sharepoint.com/:u:/t/BR-WAU-INDENG-SWFWAPP/IQDRZcQElxCWRbRi5i4y64YHAf2FluUspJXduCiUtbX2AnI?e=IKIEyS](https://weg365.sharepoint.com/teams/BR-WAU-INDENG-SWFWAPP/Documentos%20Compartilhados/Forms/AllItems.aspx?id=%2Fteams%2FBR%2DWAU%2DINDENG%2DSWFWAPP%2FDocumentos%20Compartilhados%2FMedium%20Voltage%20Drives%2FMVW3000%2FFirmware%2Fv3%2E05&viewid=7695db97%2D205e%2D481e%2D96ed%2D551dbfc276f3)
 - package: HMI=3.05.02, AUI=3.05.04, CCE=3.05.00, CCE FPGA=1.01.02, CIB=1.00.05
-- 
+
 ### Added
 
 - summary: Feature Update: PLC200 and ORZ thermal relays
